@@ -3,7 +3,6 @@ XC_ARCH="amd64"
 XC_PARALLEL="2"
 BIN="../bin"
 SRC=$(shell find . -name "*.go")
-GO111MODULE=on go get github.com/spf13/cobra/cobra
 
 ifeq (, $(shell which gox))
 $(warning "could not find gox in $(PATH), run: go get github.com/mitchellh/gox")
@@ -21,5 +20,5 @@ build:
 		-os=$(XC_OS) \
 		-arch=$(XC_ARCH) \
 		-parallel=$(XC_PARALLEL) \
-		-output=$(BIN)/{{.Dir}}_{{.OS}}_{{.Arch}} \
+		-outut=$(BIN)/{{.Dir}}_{{.OS}}_{{.Arch}} \
 		;

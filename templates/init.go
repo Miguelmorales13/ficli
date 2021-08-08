@@ -100,10 +100,8 @@ func main() {
 		URL:         "http://example.com/doc.json",
 		DeepLinking: false,
 	}))
+	_ := app.Group("/api")
 
-	api := app.Group("/api")
-
-	users.NewController(api)
 	log.Fatal(app.Listen(os.Getenv("PORT")))
 }
 
