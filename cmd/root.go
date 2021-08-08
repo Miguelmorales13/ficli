@@ -18,6 +18,7 @@ package cmd
 import (
 	"github.com/Miguelmorales13/ficli/services"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var cfgFile string
@@ -49,5 +50,10 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	if viper.Get("project.name")==nil {
+
+	} else {
 	services.GetConfigProject()
+
+	}
 }
