@@ -50,9 +50,7 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	if viper.Get("project.name")==nil {
-
-	} else {
+	if viper.Get("project.name")!=nil {
 	services.GetConfigProject()
 
 	}
