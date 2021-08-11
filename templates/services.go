@@ -22,18 +22,23 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+var service *Service
+
 type Service struct {
 }
 
-func NewService() *Service {
-	return &Service{}
+func GetService() *Service {
+	if service == nil {
+		service = &Service{}
+	}
+	return service
 }
-func (s *Service) create(%MODELNAME% entities.%EXPORTNAME%) (*entities.%EXPORTNAME%, error) {
+func (s *Service) Create(%MODELNAME% entities.%EXPORTNAME%) (*entities.%EXPORTNAME%, error) {
 	create := providers.Database.Create(&%MODELNAME%)
 	return &%MODELNAME%, create.Error
 }
 
-func (s *Service) update(%MODELNAME%Updated entities.%EXPORTNAME%, id int) (*entities.%EXPORTNAME%, error) {
+func (s *Service) Update(%MODELNAME%Updated entities.%EXPORTNAME%, id int) (*entities.%EXPORTNAME%, error) {
 	%MODELNAME% := s.getOne(id)
 	if %MODELNAME%.ID == 0 {
 		return &entities.%EXPORTNAME%{}, fiber.NewError(fiber.StatusNotFound, "%MODELNAME% not found")
@@ -41,7 +46,7 @@ func (s *Service) update(%MODELNAME%Updated entities.%EXPORTNAME%, id int) (*ent
 	updates := providers.Database.Model(&%MODELNAME%).Updates(%MODELNAME%Updated)
 	return &%MODELNAME%, updates.Error
 }
-func (s *Service) delete(id int) int64 {
+func (s *Service) Delete(id int) int64 {
 	%MODELNAME% := s.getOne(id)
 	if %MODELNAME%.ID == 0 {
 		return 0
@@ -49,12 +54,12 @@ func (s *Service) delete(id int) int64 {
 	deleted := providers.Database.Delete(&%MODELNAME%)
 	return deleted.RowsAffected
 }
-func (s *Service) getAll() (%MODELNAMEPLURAL% []entities.%EXPORTNAME%) {
+func (s *Service) GetAll() (%MODELNAMEPLURAL% []entities.%EXPORTNAME%) {
 	providers.Database.Find(&%MODELNAMEPLURAL%)
 	return
 }
 
-func (s *Service) getOne(id int) (%MODELNAME% entities.%EXPORTNAME%) {
+func (s *Service) GetOne(id int) (%MODELNAME% entities.%EXPORTNAME%) {
 	providers.Database.Find(&%MODELNAME%, id)
 	return
 }

@@ -20,7 +20,7 @@ func ControllersCrud() string {
 import (
 	"%PROJECTNAME%/api/%MODELNAMEPLURAL%/entities"
 	"%PROJECTNAME%/models"
-	"%PROJECTNAME%/utils"
+	"%PROJECTNAME%/utils/parse_body"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 )
@@ -31,12 +31,12 @@ type Controller struct {
 
 func NewController(app fiber.Router) (c *Controller) {
 	routes := app.Group("/%MODELNAMEPLURAL%")
-	c = &Controller{NewService()}
-	routes.Get("/", c.getAll)
-	routes.Get("/:id", c.getOne)
-	routes.Post("/", c.create)
-	routes.Patch("/", c.update)
-	routes.Delete("/:id", c.delete)
+	c = &Controller{GetService()}
+	routes.Get("/", c.GetAll)
+	routes.Get("/:id", c.GetOne)
+	routes.Post("/", c.Create)
+	routes.Patch("/", c.Update)
+	routes.Delete("/:id", c.Delete)
 	return
 
 }
@@ -56,9 +56,7 @@ func NewController(app fiber.Router) (c *Controller) {
 func (c *Controller) create(ctx *fiber.Ctx) error {
 	b := new(entities.%EXPORTNAME%)
 
-	if err := utils.ParseBodyAndValidate(ctx, b); err != nil {
-		fmt.Println(err.Error())
-
+	if err := parse_body.ParseBodyAndValidate(ctx, b); err != nil {
 		return err
 	}
 	return ctx.JSON(nil)
@@ -83,8 +81,7 @@ func (c *Controller) update(ctx *fiber.Ctx) error {
 		return err
 	}
 	%MODELNAME%ToUpdate := new(entities.%EXPORTNAME%)
-	if err := utils.ParseBodyAndValidate(ctx, %MODELNAME%ToUpdate); err != nil {
-		fmt.Println(err.Error())
+	if err := parse_body.ParseBodyAndValidate(ctx, %MODELNAME%ToUpdate); err != nil {
 		return err
 	}
 	update, err := c.s.update(*%MODELNAME%ToUpdate, id)

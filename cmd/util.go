@@ -16,8 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/Miguelmorales13/ficli/services"
 	"github.com/spf13/cobra"
 )
 
@@ -32,11 +31,22 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("util called")
+		if parse ,_:=cmd.Flags().GetBool("parseBody");parse {
+			services.TemplateUtilsParseBody()
+		} else if validations ,_:=cmd.Flags().GetBool("validations");validations {
+			services.TemplateUtilsValidations()
+		} else if jwt ,_:=cmd.Flags().GetBool("jwt");jwt {
+			services.TemplateUtilsJWT()
+		} else {
+			cmd.Println("Template not found")
+		}
 	},
 }
 
 func init() {
+	utilCmd.Flags().BoolP("parseBody" ,"p",false,"Create a parser body for dtos")
+	utilCmd.Flags().BoolP("validations" ,"v",false,"Create a validations for dtos")
+	utilCmd.Flags().BoolP("jwt" ,"j",false,"Create a jwt util")
 	generateCmd.AddCommand(utilCmd)
 
 	// Here you will define your flags and configuration settings.

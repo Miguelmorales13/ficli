@@ -58,7 +58,6 @@ func TemplateResponseError() {
 	CreateDefaultFile(templates.ModelsResponseError(), "models", "responseError", "model.go")
 }
 func TemplateCreateDto(destFileName string) {
-
 	CreateDefaultFile(templates.ModelsCreateDto(), "api/"+destFileName+"/dto", Plural.Singular(destFileName), "create.dto.go")
 }
 func TemplateUpdateDto(destFileName string) {
@@ -78,11 +77,14 @@ func TemplateServiceCrud(destFileName string) {
 }
 
 func TemplateUtilsParseBody() {
-	CreateDefaultFile(templates.UtilsParseBody(), "utils", "parse-body", "util.go")
+	CreateDefaultFile(templates.UtilsParseBody(), "utils/parse_body", "parse_body", "util.go")
 }
 
 func TemplateUtilsValidations() {
-	CreateDefaultFile(templates.UtilsValidations(), "utils", "validations", "util.go")
+	CreateDefaultFile(templates.UtilsValidations(), "utils/validations", "validations", "util.go")
+}
+func TemplateUtilsJWT() {
+	CreateDefaultFile(templates.UtilsJWT(), "utils/jwt", "jwt", "util.go")
 }
 func TemplateProvidersMysql() {
 	CreateDefaultFile(templates.ProvidersGormMysql(), "providers", "gorm-mysql", "provider.go")
