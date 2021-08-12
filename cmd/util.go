@@ -42,6 +42,7 @@ to quickly create a Cobra application.`,
 		} else {
 			cmd.Println("Template not found")
 		}
+		
 	},
 }
 
