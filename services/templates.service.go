@@ -86,8 +86,12 @@ func TemplateUtilsValidations() {
 func TemplateUtilsJWT() {
 	CreateDefaultFile(templates.UtilsJWT(), "utils/jwt", "jwt", "util.go")
 }
+func TemplateUtilsEmails() {
+	CreateDefaultFile(templates.UtilsEmail(), "utils/email", "email", "util.go")
+}
 func TemplateProvidersMysql() {
 	CreateDefaultFile(templates.ProvidersGormMysql(), "providers", "gorm-mysql", "provider.go")
+	ExecuteCommand("go","get","-u","github.com/dgrijalva/jwt-go")
 }
 func TemplateProvidersPostgres() {
 	CreateDefaultFile(templates.ProvidersGormPostgres(), "providers", "gorm-postgres", "provider.go")

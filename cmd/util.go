@@ -37,6 +37,8 @@ to quickly create a Cobra application.`,
 			services.TemplateUtilsValidations()
 		} else if jwt ,_:=cmd.Flags().GetBool("jwt");jwt {
 			services.TemplateUtilsJWT()
+		} else if emails ,_:=cmd.Flags().GetBool("emails");emails {
+			services.TemplateUtilsEmails()
 		} else {
 			cmd.Println("Template not found")
 		}
@@ -47,6 +49,7 @@ func init() {
 	utilCmd.Flags().BoolP("parseBody" ,"p",false,"Create a parser body for dtos")
 	utilCmd.Flags().BoolP("validations" ,"v",false,"Create a validations for dtos")
 	utilCmd.Flags().BoolP("jwt" ,"j",false,"Create a jwt util")
+	utilCmd.Flags().BoolP("emails" ,"e",false,"Create a emails util")
 	generateCmd.AddCommand(utilCmd)
 
 	// Here you will define your flags and configuration settings.
